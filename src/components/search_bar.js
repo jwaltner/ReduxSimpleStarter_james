@@ -39,7 +39,7 @@ class SearchBar extends Component {
     // when we set the value of the item to {this.state.term}, we turn this into
     // a controlled component which is rendered whenever it's state changes.
     return (
-      <div>
+      <div className="search-bar">
         <input
           value={this.state.term}
           onChange={(event) => this.setState({ term: event.target.value})}
