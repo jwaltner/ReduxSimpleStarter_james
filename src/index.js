@@ -1,9 +1,23 @@
 // note the lack of paretheses
 // create a variable React by importing it from 'react';
-import React from 'react';
+import React, { Component } from 'react';
 // to render to the webpage / DOM, we need to use ReactDOM since React and ReactDOM
 // have now diverged.
 import ReactDOM from 'react-dom';
+import YTSearch from 'youtube-api-search';
+
+// import the SearchBar which was exported from search_bar.js
+import SearchBar from './components/search_bar.js';
+
+// YouTube API Key.
+// This requires the youtubeapisearch
+// npm install --save youtube-api-search
+const API_KEY = 'AIzaSyA00eNJwxbmApmlzkhKjiXEE7B0gVdoQ7o';
+
+YTSearch({key: API_KEY, term: 'surfboards'}, function(data) {
+  console.log(data);
+});
+
 
 // create a new component.
 // this component should create some html
@@ -13,9 +27,17 @@ import ReactDOM from 'react-dom';
 //const App = function() {
 // This is react syntax... don't need to write "function()"... this is shorter syntax
 const App = () => {
+  constructor(props) {
+
+  }
+
   // This is JSX... webpack and bable translates this JSX into javascript for us.
   // JSX can not be compiled...
-  return <div>Hi!</div>;
+  return (
+    <div>
+      <SearchBar />
+    </div>
+  );
 }
 
 // take this component's HTML and put it on the page (in the DOM)
