@@ -8,16 +8,12 @@ import YTSearch from 'youtube-api-search';
 
 // import the SearchBar which was exported from search_bar.js
 import SearchBar from './components/search_bar.js';
+import VideoList from './components/video_list.js';
 
 // YouTube API Key.
 // This requires the youtubeapisearch
 // npm install --save youtube-api-search
 const API_KEY = 'AIzaSyA00eNJwxbmApmlzkhKjiXEE7B0gVdoQ7o';
-
-YTSearch({key: API_KEY, term: 'surfboards'}, function(data) {
-  console.log(data);
-});
-
 
 // create a new component.
 // this component should create some html
@@ -26,18 +22,34 @@ YTSearch({key: API_KEY, term: 'surfboards'}, function(data) {
 //     to create an instance.  We do that by wrapping it in <> like so: <App /> or <App></App>
 //const App = function() {
 // This is react syntax... don't need to write "function()"... this is shorter syntax
-const App = () => {
+class App extends Component {
   constructor(props) {
+    super(props);
 
+    this.state = { videos: [] };
+
+    // YTSearch({key: API_KEY, term: 'surfboards'}, function(videos) => {
+    YTSearch({key: API_KEY, term: 'surfboards'}, (videos) => {
+      // if we are assigning a value of a variable to a state
+      // and the names match, with ES6, we can shorten it and just
+      // list the name.
+      // this.setState({ videos: videos });
+      this.setState({ videos });
+      // console.log(data);
+    });
   }
 
   // This is JSX... webpack and bable translates this JSX into javascript for us.
   // JSX can not be compiled...
-  return (
-    <div>
-      <SearchBar />
-    </div>
-  );
+  render() {
+    // we need to pass props / properties to VideoList
+    return (
+      <div>
+        <SearchBar />
+        <VideoList videos={this.state.videos} />
+      </div>
+    );
+  }
 }
 
 // take this component's HTML and put it on the page (in the DOM)
