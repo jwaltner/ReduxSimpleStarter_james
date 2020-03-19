@@ -6,7 +6,10 @@ import VideoListItem from './video_list_item';
 const VideoList = (props) => {
   const videoItems = props.videos.map((video) => {
     // we should add a key so react can index things quickly.
-    return <VideoListItem key={video.etag} video={video} />
+    return <VideoListItem
+            onVideoSelect={props.onVideoSelect}
+            key={video.etag} 
+            video={video} />
   });
 
   return (
