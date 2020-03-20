@@ -1,3 +1,6 @@
+// by convention, use _ to import from lodash
+import _ from 'lodash';
+
 // note the lack of paretheses
 // create a variable React by importing it from 'react';
 import React, { Component } from 'react';
@@ -55,11 +58,20 @@ class App extends Component {
   // This is JSX... webpack and bable translates this JSX into javascript for us.
   // JSX can not be compiled...
   render() {
+    // pass the video search function to debounce to create a new function that
+    // can only be called every 300 miliseconds.  Then we use this new function
+    // to handle the videoSearch
+    // Note that search bar can then be declared as either of the following:
+    //           <SearchBar onSearchTermChange={(term) => videoSearch(term)} />
+    //           <SearchBar onSearchTermChange={videoSearch} />
+    //           <SearchBar onSearchTermChange={ function(term){videoSearch(term)}} />
+
+    const videoSearch = _.debounce((term) => { this.videoSearch(term) }, 300);
+
     // we need to pass props / properties to VideoList
     return (
       <div>
-        <SearchBar
-          onSearchTermChange={term => this.videoSearch(term)}/>
+        <SearchBar onSearchTermChange={videoSearch} />
         <VideoDetail video={this.state.selectedVideo}/>
         <VideoList
           onVideoSelect={selectedVideo => this.setState({selectedVideo})}
