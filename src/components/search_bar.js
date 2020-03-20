@@ -42,12 +42,19 @@ class SearchBar extends Component {
       <div className="search-bar">
         <input
           value={this.state.term}
-          onChange={(event) => this.setState({ term: event.target.value})}
+          onChange={(event) => this.onInputChange(event.target.value)}
         />
         <br/>{this.state.term}
       </div>
     );
 
+  }
+
+  // onInputChange() is local to this class.
+  // onSearchTermChange is the call-back which is passed to this Component
+  onInputChange(term) {
+    this.setState({term});
+    this.props.onSearchTermChange(term);
   }
 
   // // event is not a reserved word, it is just what is passed by onChange

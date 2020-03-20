@@ -32,8 +32,12 @@ class App extends Component {
       , selectedVideo: null
     };
 
+    this.videoSearch('surfboards')
+  }
+
+  videoSearch(term) {
     // YTSearch({key: API_KEY, term: 'surfboards'}, function(videos) => {
-    YTSearch({key: API_KEY, term: 'surfboards'}, (videos) => {
+    YTSearch({key: API_KEY, term: term}, (videos) => {
       // if we are assigning a value of a variable to a state
       // and the names match, with ES6, we can shorten it and just
       // list the name.
@@ -45,6 +49,7 @@ class App extends Component {
       });
       // console.log(data);
     });
+
   }
 
   // This is JSX... webpack and bable translates this JSX into javascript for us.
@@ -53,7 +58,8 @@ class App extends Component {
     // we need to pass props / properties to VideoList
     return (
       <div>
-        <SearchBar />
+        <SearchBar
+          onSearchTermChange={term => this.videoSearch(term)}/>
         <VideoDetail video={this.state.selectedVideo}/>
         <VideoList
           onVideoSelect={selectedVideo => this.setState({selectedVideo})}
